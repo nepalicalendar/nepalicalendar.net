@@ -1,0 +1,11 @@
+*.pyc
+.ropeproject
+*~
+*.sqlite3
+*.csv
+.#*
+nosync
+virtualenv
+*.swp
+*.log
+*.rdb
