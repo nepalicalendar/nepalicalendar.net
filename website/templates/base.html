@@ -47,12 +47,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Nepali<span>Calendar</span></a>
+          <a class="navbar-brand" href="{% url 'home' %}">Nepali<span>Calendar</span></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li> <a href="{% url 'home' %}">Home</a> </li>
-            <li> <a href="{% url 'home' %}">Calendar</a> </li>
+            <li> <a href="{% url 'calendar:home' %}">Calendar</a> </li>
             <li> <a href="{% url 'home' %}">Date Conversion</a> </li>
             <li> <a href="{% url 'home' %}">API</a> </li>
             <li> <a href="">About</a> </li>
@@ -73,15 +73,17 @@
     <footer class="footer-small">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 col-sm-6 pull-right">
+          <div class="col-lg-4 col-sm-4 pull-right">
             <ul class="social-link-footer list-unstyled">
               <li class="flipInX"><a href="http://fb.com/nepalicalendar.net"><i class="fa fa-facebook"></i></a></li>
               <li class="flipInX"><a href="https://github.com/nepalicalendar/nepalicalendar.net"><i class="fa fa-github"></i></a></li>
             </ul>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="copyright">
+              <p>{{ today.weekday_name }}, {{ today.day }} {{ today.month_name }}, वि.सं. {{ today.year }}</p>
               <p>&copy; Copyright 2011-{% now "Y" %} nepalicalendar.net</p>
+
             </div>
           </div>
         </div>
