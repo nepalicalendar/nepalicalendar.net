@@ -1,4 +1,4 @@
-from nepalicalendar import NepDate, NepCal
+from nepalicalendar import NepDate, NepCal, values
 
 
 def inject_date_params(request):
@@ -7,4 +7,5 @@ def inject_date_params(request):
     """
     return {
         'today': NepDate.today(),
+        'nepcal_values': values,
     }

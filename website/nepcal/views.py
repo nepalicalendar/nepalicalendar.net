@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpRequest
 
-from nepalicalendar import NepDate, NepCal
+from nepalicalendar import NepDate, NepCal, NEPALI_MONTH_NAMES_NE
 
 
 def calendar(request, year, month=1):
@@ -13,11 +13,11 @@ def calendar(request, year, month=1):
 
     month = int(month)
     year = int(year)
+    calendar = NepCal.monthdatescalendar(year, month)
 
     context = {
         "title": "Monthly Calendar",
-        "year": year,
-        "month": month,
+        "firstdate": NepDate(year, month, 1),
         "monthlycalendar": NepCal.monthdatescalendar(year, month),
     }
     return HttpResponse(template.render(context, request))

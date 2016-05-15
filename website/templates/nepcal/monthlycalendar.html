@@ -1,20 +1,15 @@
 <div class="monthly" id="mycalendar">
   <div class="monthly-header">
     <div class="monthly-header-title">
-      {{ today.month_name }} {{ year }}
+      {{ firstdate.month_name }}, {{ firstdate.ne_year }}
     </div>
     <a href="#" class="monthly-prev"></a>
     <a href="#" class="monthly-next"></a>
   </div>
-
   <div class="monthly-day-title-wrap">
-    <div> SUN </div>
-    <div> MON </div>
-    <div> TUE </div>
-    <div> WED </div>
-    <div> THU </div>
-    <div> FRI </div>
-    <div> SAT </div>
+    {% for weekday in nepcal_values.NEPALI_WEEKDAY_NAMES_SHORT_NE.items %}
+    <div> {{ weekday.1 }} </div>
+    {% endfor %}
   </div>
 
   <div class="monthly-day-wrap">
@@ -23,7 +18,7 @@
     <div class="monthly-week">
       {% for day in week %}
 
-      {% if day.month != month %}
+      {% if day.month != firstdate.month %}
       <div class="m-d monthly-day-blank">
         <div class="monthly-day-number"></div>
       </div>
@@ -32,7 +27,7 @@
       <div class="m-d monthly-day monthly-day-event">
         <div class="visible-sm hidden-xs visible-md visible-lg">
           <div class="monthly-day-number">
-            {% if day.en_date.day == 1 %}
+            {% if day.en_date.day == 1  or day.day == 1%}
             {{ day.en_date | date:"N j"}}
             {% else %}
             {{ day.en_date.day }}
