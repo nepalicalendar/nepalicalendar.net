@@ -1,7 +1,56 @@
-{% extends "base.html" %}{% load staticfiles %}
-{% block content %}
-<div class="container">
-  Calendar of {{ year }} and {{ month }}
-</div>
+<div class="monthly" id="mycalendar">
+  <div class="monthly-header">
+    <div class="monthly-header-title">
+      {{ today.month_name }} {{ year }}
+    </div>
+    <a href="#" class="monthly-prev"></a>
+    <a href="#" class="monthly-next"></a>
+  </div>
 
-{% endblock content %}
+  <div class="monthly-day-title-wrap">
+    <div> SUN </div>
+    <div> MON </div>
+    <div> TUE </div>
+    <div> WED </div>
+    <div> THU </div>
+    <div> FRI </div>
+    <div> SAT </div>
+  </div>
+
+  <div class="monthly-day-wrap">
+
+    {% for week in monthlycalendar %}
+    <div class="monthly-week">
+      {% for day in week %}
+
+      {% if day.month != month %}
+      <div class="m-d monthly-day-blank">
+        <div class="monthly-day-number"></div>
+      </div>
+
+      {% else %}
+      <div class="m-d monthly-day monthly-day-event">
+        <div class="visible-sm hidden-xs visible-md visible-lg">
+          <div class="monthly-day-number">
+            {% if day.en_date.day == 1 %}
+            {{ day.en_date | date:"N j"}}
+            {% else %}
+            {{ day.en_date.day }}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="monthly-day-nep">
+          {{ day.ne_day }}
+        </div>
+      </div>
+      {% endif %}
+
+      {% endfor %}
+      <div class="monthly-indicator-wrap"></div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+

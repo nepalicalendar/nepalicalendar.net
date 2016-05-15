@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      {% include 'nepcal/monthlycalendar.html' %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -23,6 +23,182 @@
     <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> -->
 
 
+    <style>
+/* Overall wrapper */
+.monthly {
+  background: #F3F3F5;
+  color:#545454;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+
+/* Contains title & nav */
+.monthly-header {
+  position: relative;
+  text-align:center;
+  padding:10px;
+  background: #fff;
+  height: 40px;
+  box-sizing: border-box;
+}
+.monthly-header-title {
+  font-size:.8em;
+  text-transform: uppercase;
+}
+/* wrapper for left button to make the clickable area bigger */
+.monthly-prev {
+  position: absolute;
+  top:0;
+  left:0;
+  width:50px;
+  height:100%;
+  opacity: .5;
+}
+.monthly-prev:hover {
+  opacity: 1;
+}
+/* Left Arrow */
+.monthly-prev:after{
+  content:'';
+  position: absolute;
+  top:50%;
+  left:50%;
+  border-left:2px solid #222;
+  border-bottom:2px solid #222;
+  width:5px;
+  height:5px;
+  margin:-3px 0 0 -5px;
+  -webkit-transform:rotate(45deg) ;
+  -ms-transform:rotate(45deg) ;
+  transform:rotate(45deg) ;
+}
+/* wrapper for right button to make the clickable area bigger */
+.monthly-next {
+  position: absolute;
+  top:0;
+  right:0;
+  width:50px;
+  height:100%;
+  opacity: .5;
+}
+.monthly-next:hover {
+  opacity: 1;
+}
+/* Right Arrow */
+.monthly-next:after{
+  content:'';
+  position: absolute;
+  top:50%;
+  left:50%;
+  border-right:2px solid #222;
+  border-top:2px solid #222;
+  width:5px;
+  height:5px;
+  margin:-3px 0 0 -5px;
+  -webkit-transform:rotate(45deg) ;
+  -ms-transform:rotate(45deg) ;
+  transform:rotate(45deg) ;
+}
+
+/* Day of the week headings */
+.monthly-day-title-wrap {
+  display:table;
+  table-layout:fixed;
+  width:100%;
+  background: #fff;
+  border-bottom: 1px solid #EBEBEB;
+}
+.monthly-day-title-wrap div {
+  width: 14.28%!important;
+  display:table-cell;
+  box-sizing:border-box;
+  position: relative;
+  font-weight: bold;
+  text-align:center;
+  text-transform: uppercase;
+  font-size:11px;
+}
+
+/* Calendar days wrapper */
+.monthly-day-wrap {
+  display:table;
+  table-layout:fixed;
+  width:100%;
+  overflow: hidden;
+}
+
+.monthly-week {
+  display:table-row;
+  width:100%;
+}
+
+/* Calendar Days */
+.monthly-day, .monthly-day-blank {
+  width: 14.28%!important;
+  display:table-cell;
+  vertical-align: top;
+  box-sizing:border-box;
+  position: relative;
+  font-weight: bold;
+  color:inherit;
+  background: #fff;
+  box-shadow: 0 0 0 1px #EBEBEB;
+  -webkit-transition: .25s;
+  transition:.25s;
+  padding:0;
+  text-decoration: none;
+}
+
+/* Trick to make the days' width equal their height */
+.monthly-day:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+  float: left;
+}
+    </style>
+    <style>
+
+/* Hover effect for non event calendar days */
+.monthly-day-wrap > a:hover {
+  background: #A1C2E3;
+}
+
+/* Days that are part of previous or next month */
+.monthly-day-blank {
+  background:#F3F3F5;
+}
+
+/* Event calendar day number styles */
+.monthly-day-number {
+  position: absolute;
+  line-height: 1em;
+  top:9px;
+  left:9px;
+  font-size:0.8vw;
+}
+.monthly-day-nep {
+  position: relative;
+
+  transform: translateY(50%);
+
+  text-align:center;
+  font-size: 3vw;
+  text-decoration: none;
+  color:#999;
+}
+
+@media (max-width: @screen-sm) {
+.monthly-day-nep {
+  font-size:20px;
+}
+}
+
+    </style>
+
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -81,7 +257,7 @@
           </div>
           <div class="col-md-6">
             <div class="copyright">
-              <p>{{ today.weekday_name }}, {{ today.day }} {{ today.month_name }}, वि.सं. {{ today.year }}</p>
+              <p>{{ today.weekday_name }}, {{ today.ne_day }} {{ today.month_name }}, वि.सं. {{ today.ne_year }}</p>
               <p>&copy; Copyright 2011-{% now "Y" %} nepalicalendar.net</p>
 
             </div>
