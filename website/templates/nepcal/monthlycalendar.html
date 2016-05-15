@@ -8,44 +8,50 @@
   </div>
   <div class="monthly-day-title-wrap">
     {% for weekday in nepcal_values.NEPALI_WEEKDAY_NAMES_SHORT_NE.items %}
-    <div> {{ weekday.1 }} </div>
-    {% endfor %}
-  </div>
-
-  <div class="monthly-day-wrap">
-
-    {% for week in monthlycalendar %}
-    <div class="monthly-week">
-      {% for day in week %}
-
-      {% if day.month != firstdate.month %}
-      <div class="m-d monthly-day-blank">
-        <div class="monthly-day-number"></div>
-      </div>
-
+    {% if weekday.0 == 6 %}
+    <div class="holiday">
       {% else %}
-      <div class="m-d monthly-day monthly-day-event">
-        <div class="visible-sm hidden-xs visible-md visible-lg">
-          <div class="monthly-day-number">
-            {% if day.en_date.day == 1  or day.day == 1%}
-            {{ day.en_date | date:"N j"}}
-            {% else %}
-            {{ day.en_date.day }}
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="monthly-day-nep">
-          {{ day.ne_day }}
-        </div>
+      <div>
+        {% endif %}
+        {{ weekday.1 }}
       </div>
-      {% endif %}
-
       {% endfor %}
-      <div class="monthly-indicator-wrap"></div>
     </div>
 
-    {% endfor %}
+    <div class="monthly-day-wrap">
 
-  </div>
+      {% for week in monthlycalendar %}
+      <div class="monthly-week">
+        {% for day in week %}
+
+        {% if day.month != firstdate.month %}
+        <div class="m-d monthly-day-blank">
+          <div class="monthly-day-number"></div>
+        </div>
+
+        {% else %}
+        <div class="m-d monthly-day monthly-day-event {% if day.weekday == 6 %} holiday {% endif %}">
+          <div class="visible-sm hidden-xs visible-md visible-lg">
+            <div class="monthly-day-number">
+              {% if day.en_date.day == 1  or day.day == 1%}
+              {{ day.en_date | date:"N j"}}
+              {% else %}
+              {{ day.en_date.day }}
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
+            {{ day.ne_day }}
+          </div>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+        <div class="monthly-indicator-wrap"></div>
+      </div>
+
+      {% endfor %}
+
+    </div>
 

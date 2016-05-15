@@ -13,11 +13,13 @@ def calendar(request, year, month=1):
 
     month = int(month)
     year = int(year)
+
     calendar = NepCal.monthdatescalendar(year, month)
+    firstdate = NepDate(year, month, 1)
 
     context = {
         "title": "Monthly Calendar",
-        "firstdate": NepDate(year, month, 1),
+        "firstdate": firstdate,
         "monthlycalendar": NepCal.monthdatescalendar(year, month),
     }
     return HttpResponse(template.render(context, request))
