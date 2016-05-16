@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 from django.template import loader
 from django.http import HttpResponse, HttpRequest
 
@@ -13,13 +13,35 @@ def calendar(request, year, month=1):
 
     month = int(month)
     year = int(year)
+    # Make sure month and year are within limits
+    if year < 2000 or (year==2000 and month==1):
+        raise Http404
+
+    if year > 2080:
+        raise Http404
 
     calendar = NepCal.monthdatescalendar(year, month)
     firstdate = NepDate(year, month, 1)
 
+    prevmonth = firstdate
+    nextmonth = firstdate
+    try:
+        prevmonth = NepDate(year - 1 if month == 1 else year,
+                            12 if month == 1 else month - 1, 1)
+    except:
+        pass  # Do nothing on overflow
+
+    try:
+        nextmonth = NepDate(year+1 if month==12 else year,
+                1 if month==12 else month+1, 1)
+    except:
+        pass
+
     context = {
         "title": "Monthly Calendar",
         "firstdate": firstdate,
+        "prevmonth": prevmonth,
+        "nextmonth": nextmonth,
         "monthlycalendar": NepCal.monthdatescalendar(year, month),
     }
     return HttpResponse(template.render(context, request))

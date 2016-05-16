@@ -3,8 +3,8 @@
     <div class="monthly-header-title">
       {{ firstdate.month_name }}, {{ firstdate.ne_year }}
     </div>
-    <a href="#" class="monthly-prev"></a>
-    <a href="#" class="monthly-next"></a>
+    <a href="{% url 'calendar:calendar' prevmonth.year prevmonth.month %}" class="monthly-prev"></a>
+    <a href="{% url 'calendar:calendar' nextmonth.year nextmonth.month %}" class="monthly-next"></a>
   </div>
   <div class="monthly-day-title-wrap">
     {% for weekday in nepcal_values.NEPALI_WEEKDAY_NAMES_SHORT_NE.items %}
@@ -26,32 +26,29 @@
 
         {% if day.month != firstdate.month %}
         <div class="m-d monthly-day-blank">
-          <div class="monthly-day-number"></div>
-        </div>
+          {% else %}
+          <div class="m-d monthly-day monthly-day-event {% if day.weekday == 6 %} holiday {% endif %}">
+            {% endif %}
+            <div class="visible-sm hidden-xs visible-md visible-lg">
+              <div class="monthly-day-number">
+                {% if day.en_date.day == 1  or day.day == 1%}
+                {{ day.en_date | date:"N j"}}
+                {% else %}
+                {{ day.en_date.day }}
+                {% endif %}
+              </div>
+            </div>
 
-        {% else %}
-        <div class="m-d monthly-day monthly-day-event {% if day.weekday == 6 %} holiday {% endif %}">
-          <div class="visible-sm hidden-xs visible-md visible-lg">
-            <div class="monthly-day-number">
-              {% if day.en_date.day == 1  or day.day == 1%}
-              {{ day.en_date | date:"N j"}}
-              {% else %}
-              {{ day.en_date.day }}
-              {% endif %}
+            <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
+              {{ day.ne_day }}
             </div>
           </div>
 
-          <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
-            {{ day.ne_day }}
-          </div>
+          {% endfor %}
+          <div class="monthly-indicator-wrap"></div>
         </div>
-        {% endif %}
 
         {% endfor %}
-        <div class="monthly-indicator-wrap"></div>
+
       </div>
-
-      {% endfor %}
-
-    </div>
 
