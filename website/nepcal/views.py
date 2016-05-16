@@ -3,54 +3,83 @@ from django.template import loader
 from django.http import HttpResponse, HttpRequest
 
 from nepalicalendar import NepDate, NepCal, NEPALI_MONTH_NAMES_NE
+from django.views.generic import TemplateView
 
 
-def calendar(request, year, month=1):
+class MonthlyCalendarBaseView(object):
+    """ MonthlyCalendarBaseViewis the base view for any view showing calendar.
+    It prepares the necessary information for displaying a nepali calendar
     """
-    Show the nepali calendar of the year and month
+    def set_date(self, year, month):
+        """
+        Sets the calendar to show the monthly calendar of given month and
+        year. It prepares other information required to show the calendar
+        """
+        self.year = int(year)
+        self.month = int(month)
+
+        # Make sure month and year are within limits
+        if self.year < 2000 or (self.year == 2000 and self.month == 1):
+            raise Http404
+
+        if self.year > 2080:
+            raise Http404
+
+        self.calendar = NepCal.monthdatescalendar(self.year, self.month)
+        self.firstdate = NepDate(self.year, self.month, 1)
+
+        self.prevmonth = self.firstdate
+        self.nextmonth = self.firstdate
+        try:
+            self.prevmonth = NepDate(self.year - 1 if self.month == 1 else self.year,
+                                     12 if self.month == 1 else self.month - 1, 1)
+        except:
+            pass  # Do nothing on overflow
+
+        try:
+            self.nextmonth = NepDate(self.year + 1 if self.month == 12 else self.year,
+                                     1 if self.month == 12 else self.month + 1, 1)
+        except:
+            pass
+
+    def get_context(self, **kwargs):
+        """
+        Returns all the required context for any template showing a
+        calendar
+        """
+        context = {
+            "firstdate": self.firstdate,
+            "prevmonth": self.prevmonth,
+            "nextmonth": self.nextmonth,
+            "monthlycalendar": self.calendar,
+        }
+        return context
+
+
+class MonthlyCalendar(TemplateView, MonthlyCalendarBaseView):
     """
-    template = loader.get_template('nepcal/calendar.html')
-
-    month = int(month)
-    year = int(year)
-    # Make sure month and year are within limits
-    if year < 2000 or (year==2000 and month==1):
-        raise Http404
-
-    if year > 2080:
-        raise Http404
-
-    calendar = NepCal.monthdatescalendar(year, month)
-    firstdate = NepDate(year, month, 1)
-
-    prevmonth = firstdate
-    nextmonth = firstdate
-    try:
-        prevmonth = NepDate(year - 1 if month == 1 else year,
-                            12 if month == 1 else month - 1, 1)
-    except:
-        pass  # Do nothing on overflow
-
-    try:
-        nextmonth = NepDate(year+1 if month==12 else year,
-                1 if month==12 else month+1, 1)
-    except:
-        pass
-
-    context = {
-        "title": "Monthly Calendar",
-        "firstdate": firstdate,
-        "prevmonth": prevmonth,
-        "nextmonth": nextmonth,
-        "monthlycalendar": NepCal.monthdatescalendar(year, month),
-    }
-    return HttpResponse(template.render(context, request))
-
-
-def home(request):
+    Show the monthly Calendar
     """
-    Calendar home. Display the calendar of current year and day
-    in nepali
-    """
-    today = NepDate.today()
-    return calendar(request, today.year, today.month)
+    template_name = "nepcal/calendar.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MonthlyCalendar, self).get_context_data(**kwargs)
+
+        # Get the current year and month
+        today = NepDate.today()
+        if 'year' in self.kwargs:
+            year = self.kwargs['year']
+        else:
+            year = today.year
+
+        if 'month' in self.kwargs:
+            month = self.kwargs['month']
+        else:
+            month = today.month
+
+        self.set_date(year, month)
+
+        context.update(self.get_context())
+        context['title'] = "Nepali Calendar:  %s , वि.सं.  %s " % (
+            self.firstdate.month_name(), self.firstdate.ne_year),
+        return context

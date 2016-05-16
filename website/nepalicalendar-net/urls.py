@@ -18,7 +18,7 @@ from django.contrib import admin
 from base import views
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^calendar/', include('nepcal.urls', namespace='calendar')),
     url(r'^admin/', admin.site.urls),
 ]

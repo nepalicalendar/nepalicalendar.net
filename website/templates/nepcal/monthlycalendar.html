@@ -3,8 +3,12 @@
     <div class="monthly-header-title">
       {{ firstdate.month_name }}, {{ firstdate.ne_year }}
     </div>
+    {% if prevmonth %}
     <a href="{% url 'calendar:calendar' prevmonth.year prevmonth.month %}" class="monthly-prev"></a>
+    {% endif %}
+    {% if nextmonth %}
     <a href="{% url 'calendar:calendar' nextmonth.year nextmonth.month %}" class="monthly-next"></a>
+    {% endif %}
   </div>
   <div class="monthly-day-title-wrap">
     {% for weekday in nepcal_values.NEPALI_WEEKDAY_NAMES_SHORT_NE.items %}
