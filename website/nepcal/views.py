@@ -81,5 +81,5 @@ class MonthlyCalendar(TemplateView, MonthlyCalendarBaseView):
 
         context.update(self.get_context())
         context['title'] = "Nepali Calendar:  %s , वि.सं.  %s " % (
-            self.firstdate.month_name(), self.firstdate.ne_year),
+            self.firstdate.month_name(), self.firstdate.ne_year)
         return context
