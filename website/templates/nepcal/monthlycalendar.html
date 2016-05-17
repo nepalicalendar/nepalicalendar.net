@@ -30,29 +30,32 @@
 
         {% if day.month != firstdate.month %}
         <div class="m-d monthly-day-blank">
-          {% else %}
-          <div class="m-d monthly-day monthly-day-event {% if day.weekday == 6 %} holiday {% endif %}">
-            {% endif %}
-            <div class="visible-sm hidden-xs visible-md visible-lg">
-              <div class="monthly-day-number">
-                {% if day.en_date.day == 1  or day.day == 1%}
-                {{ day.en_date | date:"N j"}}
-                {% else %}
-                {{ day.en_date.day }}
-                {% endif %}
+          {% elif day == today %}
+          <div class="m-d monthly-day-today">
+            {% else %}
+            <div class="m-d monthly-day">
+              {% endif %}
+
+              <div class="visible-sm hidden-xs visible-md visible-lg">
+                <div class="monthly-day-number {% if day.weekday == 6 %} holiday {% endif %}">
+                  {% if day.en_date.day == 1  or day.day == 1%}
+                  {{ day.en_date | date:"N j"}}
+                  {% else %}
+                  {{ day.en_date.day }}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
+                {{ day.ne_day }}
               </div>
             </div>
 
-            <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
-              {{ day.ne_day }}
-            </div>
+            {% endfor %}
+            <div class="monthly-indicator-wrap"></div>
           </div>
 
           {% endfor %}
-          <div class="monthly-indicator-wrap"></div>
+
         </div>
-
-        {% endfor %}
-
-      </div>
 
