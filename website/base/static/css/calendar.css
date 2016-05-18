@@ -159,14 +159,64 @@
 
 .monthly-day-nep {
     position: relative;
-
     transform: translateY(50%);
-
-    text-align:center;
     font-size: 4em;
+    text-align:center;
     text-decoration: none;
     color:#999;
 }
+
+/* Make the calendar more or less responsive */
+@media screen and (max-width: 767px) {
+    .monthly-day-nep {
+        font-size:1em;
+    }
+
+    .monthly-day-number {
+        display:none;
+    }
+
+    .monthly-day-title-wrap div {
+        font-size:1em;
+    }
+
+    .monthly-header-title {
+        font-size:1.5em;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .monthly-day-nep {
+        font-size:2em;
+    }
+    .monthly-day-number {
+        display:none;
+    }
+
+    .monthly-day-title-wrap div {
+        font-size:1.5em;
+    }
+
+    .monthly-header-title {
+        font-size:1.9em;
+    }
+
+}
+
+/* tablets/desktops and up ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .monthly-day-nep {
+        font-size:3em;
+    }
+}
+
+/* large desktops and up ----------- */
+@media screen and (min-width: 1200px) {
+    .monthly-day-nep {
+        font-size:4em;
+    }
+}
+
 
 .holiday {
     color:#b33;
