@@ -36,14 +36,12 @@
             <div class="m-d monthly-day">
               {% endif %}
 
-              <div class="visible-sm hidden-xs visible-md visible-lg">
-                <div class="monthly-day-number {% if day.weekday == 6 %} holiday {% endif %}">
-                  {% if day.en_date.day == 1  or day.day == 1%}
-                  {{ day.en_date | date:"N j"}}
-                  {% else %}
-                  {{ day.en_date.day }}
-                  {% endif %}
-                </div>
+              <div class="monthly-day-number {% if day.weekday == 6 %} holiday {% endif %}">
+                {% if day.en_date.day == 1  or day.day == 1%}
+                {{ day.en_date | date:"N j"}}
+                {% else %}
+                {{ day.en_date.day }}
+                {% endif %}
               </div>
 
               <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
