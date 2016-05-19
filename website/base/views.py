@@ -18,5 +18,5 @@ class HomeView(TemplateView, MonthlyCalendarBaseView):
         today = NepDate.today()
         self.set_date(today.year, today.month)
         context.update(self.get_context())
-        context['title'] = "Nepali Calendar : Official Nepali Calendar with Tithis (Nepali Patro) and Observances."
+        context['title'] = "Nepali Calendar :  नेपाली पात्रो "
         return context
