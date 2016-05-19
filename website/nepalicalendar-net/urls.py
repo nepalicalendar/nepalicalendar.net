@@ -19,6 +19,7 @@ from base import views
 
 urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),
+    url(r'^about$', views.AboutUsView.as_view(), name='about'),
     url(r'^calendar/', include('nepcal.urls', namespace='calendar')),
     url(r'^admin/', admin.site.urls),
 ]
