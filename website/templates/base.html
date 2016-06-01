@@ -67,12 +67,45 @@ ga('send', 'pageview');
             <li> <a href="{% url 'calendar:home' %}">Calendar</a> </li>
             <li> <a href="{% url 'home' %}">Date Conversion</a> </li>
             <li> <a href="{% url 'home' %}">API</a> </li>
-            <li> <a href="">About</a> </li>
+            <li> <a href="{% url 'about' %}">About</a> </li>
           </ul>
         </div>
       </div>
     </header>
     <!--header end-->
+
+    {% if breadcrumbs %}
+    <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-4">
+            <h1>
+              {{ breadcrumb_title }}
+            </h1>
+          </div>
+          <div class="col-lg-8 col-sm-8">
+            <ol class="breadcrumb pull-right">
+              {% for breadcrumb in breadcrumbs %}
+
+              {% if forloop.last %}
+              <li class="active">
+                {{ breadcrumb.0 }}
+                {% else %}
+                <li>
+                  <a href="{{ breadcrumb.1 }}">
+                    {{ breadcrumb.0 }}
+                  </a>
+                  {% endif %}
+                </li>
+                {% endfor %}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--breadcrumbs end-->
+    {% endif %}
 
     {% block content %}
     {% endblock %}
