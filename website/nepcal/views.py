@@ -2,7 +2,7 @@ from django.shortcuts import render, Http404
 from django.template import loader
 from django.http import HttpResponse, HttpRequest
 
-from nepalicalendar import NepDate, NepCal, NEPALI_MONTH_NAMES_NE
+from nepalicalendar import NepDate, NepCal
 from django.views.generic import TemplateView
 
 
@@ -10,6 +10,7 @@ class MonthlyCalendarBaseView(object):
     """ MonthlyCalendarBaseViewis the base view for any view showing calendar.
     It prepares the necessary information for displaying a nepali calendar
     """
+
     def set_date(self, year, month):
         """
         Sets the calendar to show the monthly calendar of given month and
@@ -42,6 +43,12 @@ class MonthlyCalendarBaseView(object):
         except:
             pass
 
+        # Either to show tithi or not
+        self.showtithi = False
+        # TODO: This is hardcoded for now. replace it with actual values
+        if self.year >= 2040 and self.year <= 2071:
+            self.showtithi = True
+
     def get_context(self, **kwargs):
         """
         Returns all the required context for any template showing a
@@ -52,6 +59,7 @@ class MonthlyCalendarBaseView(object):
             "prevmonth": self.prevmonth,
             "nextmonth": self.nextmonth,
             "monthlycalendar": self.calendar,
+            "showtithi": self.showtithi,
         }
         return context
 

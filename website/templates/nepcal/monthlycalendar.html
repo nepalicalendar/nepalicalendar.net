@@ -30,7 +30,7 @@
               m-d monthly-day
             {% endif %}
 
-            {% if day.weekday == 6 %} holiday {% endif %}">
+            {% if day.is_holiday %} holiday {% endif %}">
 
             <div class="monthly-day-number hidden-xs">
               {% if day.en_date.day == 1  or day.day == 1%}
@@ -44,12 +44,16 @@
               {{ day.ne_day }}
             </div>
 
+            {% if showtithi %}
             <div class="monthly-day-tithi hidden-xs hidden-sm">
               {{ day.ne_tithi_name }}
             </div>
+            {% endif %}
 
             <div class="monthly-day-events hidden-xs hidden-sm">
-              डम्मी इभेन्ट
+              {% for event in day.events_name %}
+              {{ event }}<br/>
+              {% endfor %}
             </div>
           </div>
         {% endfor %}
