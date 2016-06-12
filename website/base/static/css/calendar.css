@@ -7,6 +7,7 @@
     -ms-user-select: none;
     user-select: none;
     position: relative;
+    margin: 20px 0px 40px;
 }
 
 /* Contains title & nav */
@@ -152,28 +153,42 @@
 .monthly-day-number {
     position: absolute;
     line-height: 1em;
-    top:9px;
-    left:9px;
+    top:12px;
+    left:12px;
     font-size:1em;
 }
 
 .monthly-day-nep {
-    position: relative;
-    transform: translateY(50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
     font-size: 4em;
     text-align:center;
     text-decoration: none;
     color:#999;
 }
 
+.monthly-day-tithi {
+    position: absolute;
+    line-height: 1em;
+    top:12px;
+    right:12px;
+    font-size:1em;
+}
+
+.monthly-day-events {
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    text-align:center;
+    font-size: 1em;
+}
+
 /* Make the calendar more or less responsive */
 @media screen and (max-width: 767px) {
     .monthly-day-nep {
         font-size:1em;
-    }
-
-    .monthly-day-number {
-        display:none;
     }
 
     .monthly-day-title-wrap div {
@@ -186,11 +201,12 @@
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+    .monthly-day-number {
+        font-size:0.8em;
+    }
+
     .monthly-day-nep {
         font-size:2em;
-    }
-    .monthly-day-number {
-        display:none;
     }
 
     .monthly-day-title-wrap div {
@@ -218,6 +234,6 @@
 }
 
 
-.holiday {
+.holiday * {
     color:#b33;
 }
