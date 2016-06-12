@@ -152,8 +152,8 @@
 .monthly-day-number {
     position: absolute;
     line-height: 1em;
-    top:9px;
-    left:9px;
+    top:12px;
+    left:12px;
     font-size:1em;
 }
 
@@ -166,6 +166,22 @@
     text-align:center;
     text-decoration: none;
     color:#999;
+}
+
+.monthly-day-tithi {
+    position: absolute;
+    line-height: 1em;
+    top:12px;
+    right:12px;
+    font-size:1em;
+}
+
+.monthly-day-events {
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    text-align:center;
+    font-size: 1em;
 }
 
 /* Make the calendar more or less responsive */
