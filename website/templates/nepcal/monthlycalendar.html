@@ -12,48 +12,49 @@
   </div>
   <div class="monthly-day-title-wrap">
     {% for weekday in nepcal_values.NEPALI_WEEKDAY_NAMES_SHORT_NE.items %}
-    {% if weekday.0 == 6 %}
-    <div class="holiday">
-      {% else %}
-      <div>
-        {% endif %}
+      <div class="{% if weekday.0 == 6 %} holiday {% endif %}">
         {{ weekday.1 }}
       </div>
-      {% endfor %}
-    </div>
-
-    <div class="monthly-day-wrap">
-
-      {% for week in monthlycalendar %}
+    {% endfor %}
+  </div>
+  <div class="monthly-day-wrap">
+    {% for week in monthlycalendar %}
       <div class="monthly-week">
         {% for day in week %}
-
-        {% if day.month != firstdate.month %}
-        <div class="m-d monthly-day-blank">
-          {% elif day == today %}
-          <div class="m-d monthly-day-today">
+          <div class="
+            {% if day.month != firstdate.month %}
+              m-d monthly-day-blank
+            {% elif day == today %}
+              m-d monthly-day-today
             {% else %}
-            <div class="m-d monthly-day">
-              {% endif %}
+              m-d monthly-day
+            {% endif %}
 
-              <div class="monthly-day-number {% if day.weekday == 6 %} holiday {% endif %}">
-                {% if day.en_date.day == 1  or day.day == 1%}
+            {% if day.weekday == 6 %} holiday {% endif %}">
+
+            <div class="monthly-day-number hidden-xs">
+              {% if day.en_date.day == 1  or day.day == 1%}
                 {{ day.en_date | date:"N j"}}
-                {% else %}
+              {% else %}
                 {{ day.en_date.day }}
-                {% endif %}
-              </div>
-
-              <div class="monthly-day-nep {% if day.weekday == 6 %} holiday {% endif %}">
-                {{ day.ne_day }}
-              </div>
+              {% endif %}
             </div>
 
-            {% endfor %}
-            <div class="monthly-indicator-wrap"></div>
+            <div class="monthly-day-nep">
+              {{ day.ne_day }}
+            </div>
+
+            <div class="monthly-day-tithi hidden-xs hidden-sm">
+              {{ day.ne_tithi_name }}
+            </div>
+
+            <div class="monthly-day-events hidden-xs hidden-sm">
+              डम्मी इभेन्ट
+            </div>
           </div>
-
-          {% endfor %}
-
-        </div>
-
+        {% endfor %}
+        <div class="monthly-indicator-wrap"></div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
