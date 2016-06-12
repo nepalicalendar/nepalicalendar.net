@@ -32,7 +32,7 @@
 
             {% if day.weekday == 6 %} holiday {% endif %}">
 
-            <div class="monthly-day-number">
+            <div class="monthly-day-number hidden-xs hidden-sm">
               {% if day.en_date.day == 1  or day.day == 1%}
                 {{ day.en_date | date:"N j"}}
               {% else %}

@@ -172,10 +172,6 @@
         font-size:1em;
     }
 
-    .monthly-day-number {
-        display:none;
-    }
-
     .monthly-day-title-wrap div {
         font-size:1em;
     }
@@ -188,9 +184,6 @@
 @media (min-width: 768px) and (max-width: 991px) {
     .monthly-day-nep {
         font-size:2em;
-    }
-    .monthly-day-number {
-        display:none;
     }
 
     .monthly-day-title-wrap div {
