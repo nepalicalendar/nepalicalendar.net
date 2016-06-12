@@ -111,7 +111,44 @@ ga('send', 'pageview');
     {% endblock %}
     <!--footer start-->
     <footer class="footer">
-      <div class="container"></div>
+      <div class="container">
+
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <select class="form-control ">
+              <option value="">BS to AD</option>
+              <option value="">AD to BS</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <select class="form-control ">
+              {% for year in nepali_years %}
+              <option value="">{{ year }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <select class="form-control ">
+              {% for month in nepcal_values.NEPALI_MONTH_NAMES_NE.values %}
+              <option value="">{{ month }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <select class="form-control ">
+              {% for day in nepali_days_range %}
+              <option value="">{{ day }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+
+          <button type="submit" class="btn btn-default">Convert</button>
+        </form>
+      </div>
     </footer>
     <!-- footer end -->
     <!--small footer start -->

@@ -2971,3 +2971,7 @@ div.header h3{
     left:50%;
     top:-4px;
 }
+
+.form-control{
+    color: #000;
+}
