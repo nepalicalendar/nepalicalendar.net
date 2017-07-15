@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "nightly" # currently points to 3.6-dev
+
+install: "pip install -r requirements.txt"
+
+# command to run tests
+script:
+  - cd website
+  - python manage.py test
